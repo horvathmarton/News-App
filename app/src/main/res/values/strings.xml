@@ -5,4 +5,6 @@
     <string name="action_delete_all_source">Delete all source</string>
     <string name="cancel">Cancel</string>
     <string name="ok">Ok</string>
+    <string name="notif_title">News App</string>
+    <string name="notif_text">Have you already checked out the new today?</string>
 </resources>

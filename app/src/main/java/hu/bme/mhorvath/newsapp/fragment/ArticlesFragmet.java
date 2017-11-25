@@ -108,7 +108,7 @@ public class ArticlesFragmet extends Fragment {
         });
 
         DateTime now = new DateTime();
-        StringBuilder sb = new StringBuilder("Last updated: ");
+        StringBuilder sb = new StringBuilder("Last updated (UTC): ");
         sb.append(now.toLocalDate()).append(" ").append(now.toLocalTime());
         sb.setLength(sb.length() - 4); // To remove milliseconds
         tvUpdate.setText(sb.toString());

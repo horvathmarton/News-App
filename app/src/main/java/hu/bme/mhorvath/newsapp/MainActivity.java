@@ -1,5 +1,8 @@
 package hu.bme.mhorvath.newsapp;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,11 +11,14 @@ import android.view.MenuItem;
 
 import com.github.nisrulz.sensey.Sensey;
 
+import org.joda.time.DateTime;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import hu.bme.mhorvath.newsapp.adapter.ScreenSliderPagerAdapter;
 import hu.bme.mhorvath.newsapp.fragment.AddSourceDialogFragment;
 import hu.bme.mhorvath.newsapp.interfaces.OnSourceChangedListener;
+import hu.bme.mhorvath.newsapp.notification.Receiver;
 import hu.bme.mhorvath.newsapp.transformer.ZoomOutPageTransformer;
 
 public class MainActivity extends AppCompatActivity implements OnSourceChangedListener {
@@ -30,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements OnSourceChangedLi
         pagerAdapter = new ScreenSliderPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
         pager.setPageTransformer(true, new ZoomOutPageTransformer());
+
+        initNotification();
     }
 
     @Override
@@ -82,4 +90,19 @@ public class MainActivity extends AppCompatActivity implements OnSourceChangedLi
     public void onAllSourceRemoved() {
         pagerAdapter.removeAllSources();
     }
+
+    private void initNotification() {
+
+        AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(MainActivity.this, Receiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 3, intent,
+                0);
+
+        DateTime when = new DateTime().withHourOfDay(7).withMinuteOfHour(0).withSecondOfMinute(0);
+
+        am.setRepeating(AlarmManager.RTC_WAKEUP, when.getMillis(),
+                AlarmManager.INTERVAL_DAY, pendingIntent);
+
+    }
+
 }

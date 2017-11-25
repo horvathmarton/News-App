@@ -20,6 +20,8 @@
             </intent-filter>
         </activity>
 
+        <receiver android:name=".notification.Receiver" />
+
         <meta-data
             android:name="DATABASE"
             android:value="sources.db" />
