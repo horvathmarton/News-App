@@ -34,8 +34,6 @@ public class ArticlesFragmet extends Fragment {
 
     public static final String KEY_SOURCE_NAME = "KEY_SOURCE_NAME";
 
-    @BindView(R.id.srlFragment)
-    SwipeRefreshLayout srlFragment;
     @BindView(R.id.rvArticles)
     RecyclerView rvArticles;
     @BindView(R.id.tvUpdate)
@@ -112,9 +110,5 @@ public class ArticlesFragmet extends Fragment {
         sb.append(now.toLocalDate()).append(" ").append(now.toLocalTime());
         sb.setLength(sb.length() - 4); // To remove milliseconds
         tvUpdate.setText(sb.toString());
-
-        if (srlFragment.isRefreshing()) {
-            srlFragment.setRefreshing(false);
-        }
     }
 }
