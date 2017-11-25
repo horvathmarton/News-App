@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +34,11 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
     @Override
     public void onBindViewHolder(ArticlesAdapter.ViewHolder holder, int position) {
         Article article = articles.get(position);
+
         holder.tvTitle.setText(article.title);
         holder.tvDescription.setText(article.description);
-        holder.cvArticle.setCardBackgroundColor(Color.RED);
+
+        Picasso.with(holder.ivImage.getContext()).load(article.urlToImage).into(holder.ivImage);
     }
 
     @Override
