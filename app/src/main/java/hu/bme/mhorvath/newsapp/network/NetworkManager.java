@@ -1,6 +1,8 @@
 package hu.bme.mhorvath.newsapp.network;
 
+import hu.bme.mhorvath.newsapp.model.NewsData;
 import okhttp3.OkHttpClient;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
