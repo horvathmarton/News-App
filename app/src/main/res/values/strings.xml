@@ -3,4 +3,6 @@
     <string name="action_add_source">Add new source</string>
     <string name="action_delete_source">Delete source</string>
     <string name="action_delete_all_source">Delete all source</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
 </resources>
