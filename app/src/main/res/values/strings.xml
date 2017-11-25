@@ -7,4 +7,6 @@
     <string name="ok">Ok</string>
     <string name="notif_title">News App</string>
     <string name="notif_text">Have you already checked out the news today?</string>
+    <string name="invalid_source">Invalid source name</string>
+    <string name="no_internet">No internet</string>
 </resources>

@@ -3,6 +3,7 @@ package hu.bme.mhorvath.newsapp.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -96,13 +97,20 @@ public class ArticlesFragmet extends Fragment {
             @Override
             public void onResponse(@NonNull Call<NewsData> call, @NonNull Response<NewsData> response) {
 
+                if (!response.isSuccessful()) {
+                    Snackbar.make(getView(), R.string.invalid_source, Snackbar.LENGTH_LONG).show();
+                    return;
+                }
+
                 List<Article> articles = response.body().articles;
                 adapter.addItems(articles);
 
             }
 
             @Override
-            public void onFailure(@NonNull Call<NewsData> call, @NonNull Throwable t) {}
+            public void onFailure(@NonNull Call<NewsData> call, @NonNull Throwable t) {
+                Snackbar.make(getView(), R.string.no_internet, Snackbar.LENGTH_LONG).show();
+            }
         });
 
         DateTime now = new DateTime();
