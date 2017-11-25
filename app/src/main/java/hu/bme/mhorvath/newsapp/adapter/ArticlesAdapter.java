@@ -1,6 +1,8 @@
 package hu.bme.mhorvath.newsapp.adapter;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,13 +34,21 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ArticlesAdapter.ViewHolder holder, int position) {
-        Article article = articles.get(position);
+    public void onBindViewHolder(final ArticlesAdapter.ViewHolder holder, int position) {
+        final Article article = articles.get(position);
 
         holder.tvTitle.setText(article.title);
         holder.tvDescription.setText(article.description);
 
         Picasso.with(holder.ivImage.getContext()).load(article.urlToImage).into(holder.ivImage);
+
+        holder.cvArticle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(article.url));
+                holder.cvArticle.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
