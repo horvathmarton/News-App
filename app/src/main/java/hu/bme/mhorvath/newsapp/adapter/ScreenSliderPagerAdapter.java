@@ -9,19 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.bme.mhorvath.newsapp.fragment.ArticlesFragmet;
+import hu.bme.mhorvath.newsapp.model.Source;
 
 public class ScreenSliderPagerAdapter extends FragmentStatePagerAdapter {
 
-    private List<String> sources = new ArrayList<>();
+    private List<Source> sources = new ArrayList<>();
 
     public ScreenSliderPagerAdapter(FragmentManager fm) {
         super(fm);
+        sources = Source.listAll(Source.class);
     }
 
     @Override
     public Fragment getItem(int position) {
         Bundle bundle = new Bundle();
-        bundle.putString(ArticlesFragmet.KEY_SOURCE_NAME, sources.get(position));
+        bundle.putString(ArticlesFragmet.KEY_SOURCE_NAME, sources.get(position).getSource());
         ArticlesFragmet fragmet = new ArticlesFragmet();
         fragmet.setArguments(bundle);
         return fragmet;
@@ -38,17 +40,21 @@ public class ScreenSliderPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public void addSource(String name) {
-        sources.add(name);
+        Source source = new Source(name);
+        sources.add(source);
+        source.save();
         notifyDataSetChanged();
     }
 
     public void removeSource(int position) {
-        sources.remove(position);
+        Source source = sources.remove(position);
+        source.delete();
         notifyDataSetChanged();
     }
 
     public void removeAllSources() {
         sources.clear();
+        Source.deleteAll(Source.class);
         notifyDataSetChanged();
     }
 }
