@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkManager {
 
-    private static final String BASE_URL = "htttps://newsapi.org/v2";
+    private static final String BASE_URL = "https://newsapi.org";
     private static final String APP_KEY = "ae658efa2eed44089f8bc0e027a56657";
 
     private static NetworkManager instance;
