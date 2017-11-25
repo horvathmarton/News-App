@@ -4,13 +4,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.github.nisrulz.sensey.Sensey;
+import com.github.nisrulz.sensey.ShakeDetector;
+
+import org.joda.time.DateTime;
 
 import java.util.List;
 
@@ -33,8 +38,11 @@ public class ArticlesFragmet extends Fragment {
     SwipeRefreshLayout srlFragment;
     @BindView(R.id.rvArticles)
     RecyclerView rvArticles;
+    @BindView(R.id.tvUpdate)
+    TextView tvUpdate;
     private RecyclerView.LayoutManager layoutManager;
     private ArticlesAdapter adapter;
+    private ShakeDetector.ShakeListener shakeListener;
 
     @Nullable
     @Override
@@ -51,15 +59,23 @@ public class ArticlesFragmet extends Fragment {
         rvArticles.setLayoutManager(layoutManager);
         rvArticles.setAdapter(adapter);
 
-        refreshView();
-        srlFragment.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        shakeListener = new ShakeDetector.ShakeListener() {
             @Override
-            public void onRefresh() {
+            public void onShakeDetected() {}
+
+            @Override
+            public void onShakeStopped() {
                 refreshView();
             }
-        });
-
-        return rootView;
+        };
+        Sensey.getInstance().startShakeDetection(shakeListener);
     }
 
     @Override
@@ -68,7 +84,13 @@ public class ArticlesFragmet extends Fragment {
         refreshView();
     }
 
-    private void refreshView() {
+    @Override
+    public void onStop() {
+        Sensey.getInstance().stopShakeDetection(shakeListener);
+        super.onStop();
+    }
+
+    public void refreshView() {
 
         String source = getArguments().getString(KEY_SOURCE_NAME);
         Call<NewsData> call = NetworkManager.getInstance().getNews(source);
@@ -85,7 +107,11 @@ public class ArticlesFragmet extends Fragment {
             public void onFailure(@NonNull Call<NewsData> call, @NonNull Throwable t) {}
         });
 
-        // TODO: Here comes some kind of refresh indication
+        DateTime now = new DateTime();
+        StringBuilder sb = new StringBuilder("Last updated: ");
+        sb.append(now.toLocalDate()).append(" ").append(now.toLocalTime());
+        sb.setLength(sb.length() - 4); // To remove milliseconds
+        tvUpdate.setText(sb.toString());
 
         if (srlFragment.isRefreshing()) {
             srlFragment.setRefreshing(false);

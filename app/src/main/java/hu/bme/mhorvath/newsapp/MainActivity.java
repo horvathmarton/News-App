@@ -1,11 +1,12 @@
 package hu.bme.mhorvath.newsapp;
 
-import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.github.nisrulz.sensey.Sensey;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +30,18 @@ public class MainActivity extends AppCompatActivity implements OnSourceChangedLi
         pagerAdapter = new ScreenSliderPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
         pager.setPageTransformer(true, new ZoomOutPageTransformer());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Sensey.getInstance().init(this);
+    }
+
+    @Override
+    protected void onStop() {
+        Sensey.getInstance().stop();
+        super.onStop();
     }
 
     @Override

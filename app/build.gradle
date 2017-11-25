@@ -25,6 +25,8 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
 
     implementation 'com.github.satyan:sugar:1.5'
+    implementation 'net.danlew:android.joda:2.9.9.1'
+    implementation 'com.github.nisrulz:sensey:1.7.0'
     implementation 'com.jakewharton:butterknife:8.8.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'

@@ -57,4 +57,11 @@ public class ScreenSliderPagerAdapter extends FragmentStatePagerAdapter {
         Source.deleteAll(Source.class);
         notifyDataSetChanged();
     }
+
+    public void refreshAllSources() {
+        for (int i = 0; i < sources.size(); ++i) {
+            ArticlesFragmet fragmet = (ArticlesFragmet) getItem(i);
+            fragmet.refreshView();
+        }
+    }
 }
