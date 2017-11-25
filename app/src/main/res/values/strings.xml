@@ -9,4 +9,5 @@
     <string name="notif_text">Have you already checked out the news today?</string>
     <string name="invalid_source">Invalid source name</string>
     <string name="no_internet">No internet</string>
+    <string name="article_tumbnail">Article tumbnail</string>
 </resources>

@@ -1,22 +1,15 @@
 package hu.bme.mhorvath.newsapp.adapter;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import hu.bme.mhorvath.newsapp.fragment.ArticlesFragmet;
-import hu.bme.mhorvath.newsapp.model.NewsData;
 import hu.bme.mhorvath.newsapp.model.Source;
-import hu.bme.mhorvath.newsapp.network.NetworkManager;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ScreenSliderPagerAdapter extends FragmentStatePagerAdapter {
 
